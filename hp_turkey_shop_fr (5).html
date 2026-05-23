@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HP Turkey Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D49A;
+    --gold-dark: #8B6914;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark2: #1A1A1A;
+    --white: #F5F0E8;
+    --white-dim: rgba(245,240,232,0.7);
+  }
+  body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,10,0.95);
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 70px;
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-crown { font-size: 20px; color: var(--gold); }
+  .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--white-dim); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-actions { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-icon { color: var(--white-dim); font-size: 18px; cursor: pointer; transition: color 0.3s; }
+  .nav-icon:hover { color: var(--gold); }
+  .cart-badge { position: relative; }
+  .cart-count { position: absolute; top: -8px; right: -8px; background: var(--gold); color: var(--black); font-size: 9px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; position: relative; display: flex; align-items: center;
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A1208 50%, #0A0A0A 100%);
+    overflow: hidden; padding-top: 70px;
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0, rgba(201,168,76,0.03) 1px, transparent 0, transparent 50%);
+    background-size: 30px 30px;
+  }
+  .hero-glow { position: absolute; top: 20%; right: 10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%); border-radius: 50%; }
+  .hero-glow2 { position: absolute; bottom: 10%; left: 5%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%); border-radius: 50%; }
+  .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; width: 100%; }
+  .hero-tag { font-size: 10px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 12px; }
+  .hero-tag::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 6.5vw, 84px); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 1.5rem; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: 13px; letter-spacing: 1px; color: var(--white-dim); line-height: 1.8; margin-bottom: 3rem; max-width: 380px; }
+  .hero-cta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--black); padding: 14px 36px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s; font-family: 'Montserrat', sans-serif; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-secondary { border: 1px solid rgba(201,168,76,0.5); color: var(--gold); padding: 14px 36px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; background: transparent; cursor: pointer; transition: all 0.3s; font-family: 'Montserrat', sans-serif; }
+  .btn-secondary:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+  .hero-img-frame { width: 420px; height: 560px; position: relative; border: 1px solid rgba(201,168,76,0.3); overflow: hidden; background: var(--dark2); box-shadow: 0 0 60px rgba(201,168,76,0.08); }
+  .hero-img-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; color: rgba(201,168,76,0.3); font-family: 'Cormorant Garamond', serif; font-size: 16px; letter-spacing: 3px; background: linear-gradient(160deg, #1A1208 0%, #0D0D0D 100%); }
+  .hero-img-crown { font-size: 60px; opacity: 0.4; animation: shimmer 3s ease-in-out infinite; }
+  .hero-badge { position: absolute; top: -15px; right: -15px; width: 90px; height: 90px; background: var(--gold); display: flex; align-items: center; justify-content: center; flex-direction: column; }
+  .hero-badge span { font-size: 9px; letter-spacing: 1px; color: var(--black); font-weight: 600; text-transform: uppercase; text-align: center; line-height: 1.3; }
+  .hero-badge strong { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--black); font-weight: 600; }
+
+  /* MARQUEE */
+  .marquee-wrap { background: var(--gold); padding: 14px 0; overflow: hidden; }
+  .marquee-track { display: flex; animation: marquee 22s linear infinite; white-space: nowrap; }
+  .marquee-item { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--black); font-weight: 600; padding: 0 2rem; }
+  .marquee-dot { color: var(--black); opacity: 0.5; padding: 0 0.5rem; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  .section { max-width: 1200px; margin: 0 auto; padding: 6rem 3rem; }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3rem; }
+  .section-label { font-size: 10px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--white); }
+  .see-all { font-size: 11px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; text-decoration: none; border-bottom: 1px solid rgba(201,168,76,0.4); padding-bottom: 2px; cursor: pointer; }
+
+  /* CATEGORIES */
+  .cat-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; }
+  .cat-card { position: relative; overflow: hidden; cursor: pointer; background: var(--dark2); }
+  .cat-card-tall { min-height: 500px; grid-row: span 2; }
+  .cat-card-short { min-height: 240px; }
+  .cat-img { width: 100%; height: 100%; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .cat-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 60%); transition: background 0.4s; }
+  .cat-card:hover .cat-overlay { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%); }
+  .cat-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; }
+  .cat-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--white); letter-spacing: 2px; margin-bottom: 0.5rem; }
+  .cat-count { font-size: 10px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
+  .cat-line { width: 30px; height: 1px; background: var(--gold); margin-bottom: 1rem; transition: width 0.4s; }
+  .cat-card:hover .cat-line { width: 60px; }
+
+  /* PRODUCTS */
+  .prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .prod-card { cursor: pointer; }
+  .prod-img-wrap { position: relative; background: var(--dark2); aspect-ratio: 3/4; overflow: hidden; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; }
+  .prod-img-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 2px; color: rgba(201,168,76,0.25); flex-direction: column; gap: 0.5rem; background: linear-gradient(160deg, #1C1C14 0%, #111111 100%); transition: transform 0.5s; }
+  .prod-card:hover .prod-img-bg { transform: scale(1.03); }
+  .prod-tag { position: absolute; top: 16px; left: 16px; background: var(--gold); color: var(--black); font-size: 9px; letter-spacing: 2px; font-weight: 600; padding: 5px 12px; text-transform: uppercase; }
+  .prod-tag-solde { background: #8B1A1A; color: var(--white); }
+  .prod-wishlist { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border: 1px solid rgba(201,168,76,0.4); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; background: rgba(0,0,0,0.5); font-size: 16px; }
+  .prod-wishlist:hover { background: rgba(201,168,76,0.15); border-color: var(--gold); }
+  .prod-add { position: absolute; bottom: 0; left: 0; right: 0; background: var(--gold); color: var(--black); font-size: 10px; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; padding: 12px; text-align: center; transform: translateY(100%); transition: transform 0.3s; }
+  .prod-card:hover .prod-add { transform: translateY(0); }
+  .prod-brand { font-size: 9px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 0.4rem; }
+  .prod-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; color: var(--white); margin-bottom: 0.5rem; }
+  .prod-price { font-size: 13px; color: var(--white-dim); letter-spacing: 1px; }
+  .prod-price-sale { color: var(--gold); }
+
+  /* PROMO */
+  .promo { background: var(--dark2); border-top: 1px solid rgba(201,168,76,0.2); border-bottom: 1px solid rgba(201,168,76,0.2); }
+  .promo-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .promo-label { font-size: 10px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+  .promo-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 300; line-height: 1.1; color: var(--white); margin-bottom: 1.5rem; }
+  .promo-title em { font-style: italic; color: var(--gold); }
+  .promo-desc { font-size: 13px; color: var(--white-dim); line-height: 1.8; margin-bottom: 2.5rem; }
+  .promo-stats { display: flex; gap: 3rem; }
+  .promo-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; color: var(--gold); line-height: 1; }
+  .promo-stat-label { font-size: 10px; letter-spacing: 2px; color: var(--white-dim); text-transform: uppercase; margin-top: 0.4rem; }
+  .promo-visual { height: 380px; border: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1A1208 0%, #111 100%); }
+  .promo-visual-text { font-family: 'Cormorant Garamond', serif; font-size: 15px; letter-spacing: 4px; color: rgba(201,168,76,0.3); text-transform: uppercase; text-align: center; line-height: 2; }
+
+  /* LIVRAISON BANNER */
+  .livraison { background: var(--dark); border-top: 1px solid rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.15); }
+  .livraison-inner { max-width: 1200px; margin: 0 auto; padding: 3rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  .livraison-item { display: flex; align-items: center; gap: 1rem; }
+  .livraison-icon { font-size: 28px; }
+  .livraison-title { font-size: 11px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; font-weight: 600; margin-bottom: 0.3rem; }
+  .livraison-desc { font-size: 12px; color: var(--white-dim); }
+
+  /* TESTIMONIALS */
+  .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .test-card { background: var(--dark2); padding: 2.5rem; border: 1px solid rgba(201,168,76,0.1); }
+  .test-stars { color: var(--gold); font-size: 14px; letter-spacing: 3px; margin-bottom: 1.5rem; }
+  .test-quote { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: var(--white); line-height: 1.6; margin-bottom: 2rem; font-style: italic; }
+  .test-author { font-size: 11px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
+  .test-origin { font-size: 11px; color: rgba(245,240,232,0.4); margin-top: 0.3rem; }
+
+  /* NEWSLETTER */
+  .newsletter { background: linear-gradient(135deg, #1A1208 0%, #111 100%); border-top: 1px solid rgba(201,168,76,0.2); }
+  .newsletter-inner { max-width: 600px; margin: 0 auto; padding: 5rem 3rem; text-align: center; }
+  .newsletter-label { font-size: 10px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+  .newsletter-title { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300; color: var(--white); margin-bottom: 1rem; }
+  .newsletter-sub { font-size: 13px; color: var(--white-dim); line-height: 1.8; margin-bottom: 2.5rem; }
+  .newsletter-form { display: flex; gap: 0; max-width: 460px; margin: 0 auto; }
+  .newsletter-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.3); border-right: none; color: var(--white); padding: 14px 20px; font-size: 13px; font-family: 'Montserrat', sans-serif; outline: none; }
+  .newsletter-input::placeholder { color: rgba(245,240,232,0.3); }
+  .newsletter-input:focus { border-color: var(--gold); }
+  .newsletter-btn { background: var(--gold); color: var(--black); padding: 14px 28px; font-size: 10px; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; font-family: 'Montserrat', sans-serif; white-space: nowrap; }
+
+  /* FOOTER */
+  footer { background: var(--dark); border-top: 1px solid rgba(201,168,76,0.2); padding: 5rem 3rem 2rem; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+  .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-desc { font-size: 12px; color: var(--white-dim); line-height: 1.8; max-width: 260px; margin-bottom: 2rem; }
+  .footer-social { display: flex; gap: 0.75rem; }
+  .footer-soc-btn { width: 38px; height: 38px; border: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; font-size: 13px; color: var(--gold); font-weight: 600; }
+  .footer-soc-btn:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+  .footer-col-title { font-size: 10px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; font-weight: 600; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .footer-links a { font-size: 13px; color: var(--white-dim); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(201,168,76,0.15); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 11px; color: rgba(245,240,232,0.35); letter-spacing: 1px; }
+  .footer-pay { display: flex; gap: 0.75rem; align-items: center; }
+  .pay-badge { font-size: 9px; letter-spacing: 1px; color: rgba(245,240,232,0.4); border: 1px solid rgba(201,168,76,0.2); padding: 4px 10px; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { 0% { opacity: 0.2; } 50% { opacity: 0.5; } 100% { opacity: 0.2; } }
+  .hero-tag { animation: fadeUp 0.6s ease forwards; }
+  .hero-title { animation: fadeUp 0.6s 0.15s ease both; }
+  .hero-sub { animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-cta { animation: fadeUp 0.6s 0.45s ease both; }
+  .hero-img-frame { animation: fadeUp 0.8s 0.2s ease both; }
+
+  /* RESPONSIVE */
+  /* INFO MODAL */
+  .info-modal { position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); padding:20px; }
+  .info-modal.open { display:flex; }
+  .info-modal-box { background:var(--dark); border:1px solid rgba(201,168,76,0.3); width:90%; max-width:600px; max-height:85vh; overflow-y:auto; position:relative; }
+  .info-modal-header { padding:28px 32px 20px; border-bottom:1px solid rgba(201,168,76,0.15); display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:var(--dark); z-index:2; }
+  .info-modal-title { font-family:'Cormorant Garamond',serif; font-size:28px; color:var(--gold); letter-spacing:2px; }
+  .info-modal-close { font-size:22px; cursor:pointer; color:var(--white-dim); transition:color 0.2s; }
+  .info-modal-close:hover { color:var(--gold); }
+  .info-modal-body { padding:28px 32px 36px; }
+  .info-section { margin-bottom:28px; }
+  .info-section h3 { font-size:11px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid rgba(201,168,76,0.15); }
+  .info-section p { font-size:13px; color:var(--white-dim); line-height:1.9; margin-bottom:10px; }
+  .info-section ul { list-style:none; padding:0; }
+  .info-section ul li { font-size:13px; color:var(--white-dim); padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05); display:flex; gap:10px; }
+  .info-section ul li::before { content:'✦'; color:var(--gold); font-size:8px; margin-top:3px; flex-shrink:0; }
+  .size-table { width:100%; border-collapse:collapse; margin-top:12px; }
+  .size-table th { background:rgba(201,168,76,0.15); color:var(--gold); font-size:10px; letter-spacing:2px; text-transform:uppercase; padding:10px 14px; text-align:center; border:1px solid rgba(201,168,76,0.2); }
+  .size-table td { color:var(--white-dim); font-size:12px; padding:10px 14px; text-align:center; border:1px solid rgba(255,255,255,0.06); }
+  .size-table tr:hover td { background:rgba(201,168,76,0.05); }
+  .pay-method { display:flex; align-items:center; gap:16px; padding:16px; border:1px solid rgba(201,168,76,0.15); margin-bottom:12px; background:rgba(201,168,76,0.03); }
+  .pay-method-icon { font-size:28px; }
+  .pay-method-name { font-size:12px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:4px; font-weight:600; }
+  .pay-method-desc { font-size:12px; color:var(--white-dim); line-height:1.6; }
+  .suivi-form { display:flex; gap:0; margin-top:16px; }
+  .suivi-input { flex:1; background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.3); border-right:none; color:var(--white); padding:12px 16px; font-size:13px; font-family:'Montserrat',sans-serif; outline:none; }
+  .suivi-btn { background:var(--gold); color:var(--black); padding:12px 24px; font-size:10px; letter-spacing:2px; font-weight:600; border:none; cursor:pointer; font-family:'Montserrat',sans-serif; }
+
+  @media (max-width: 900px) {
+    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    .hero-tag { justify-content: center; }
+    .hero-sub { margin: 0 auto 2.5rem; }
+    .hero-cta { justify-content: center; }
+    .hero-img-frame { width: 100%; max-width: 340px; height: 400px; }
+    .cat-grid { grid-template-columns: 1fr 1fr; }
+    .cat-card-tall { grid-row: span 1; min-height: 280px; }
+    .prod-grid { grid-template-columns: repeat(2, 1fr); }
+    .promo-inner { grid-template-columns: 1fr; }
+    .test-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .livraison-inner { grid-template-columns: repeat(2, 1fr); }
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .section { padding: 4rem 1.5rem; }
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  .nav-links a.active { color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+
+  /* SEARCH */
+  .search-wrap { position: relative; display: flex; align-items: center; }
+  .search-box { display: none; align-items: center; gap: 8px; background: var(--dark2); border: 1px solid rgba(201,168,76,0.4); padding: 6px 14px; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 260px; z-index: 200; }
+  .search-box.open { display: flex; }
+  .search-box input { background: transparent; border: none; outline: none; color: var(--white); font-size: 12px; font-family: 'Montserrat', sans-serif; width: 100%; }
+  .search-box input::placeholder { color: rgba(245,240,232,0.3); }
+  .search-results { position: absolute; top: calc(100% + 8px); right: 0; width: 300px; background: var(--dark2); border: 1px solid rgba(201,168,76,0.3); z-index: 300; max-height: 360px; overflow-y: auto; display: none; }
+  .search-results.open { display: block; }
+  .search-item { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-bottom: 1px solid rgba(201,168,76,0.1); cursor: pointer; transition: background 0.2s; }
+  .search-item:hover { background: rgba(201,168,76,0.07); }
+  .search-item img { width: 44px; height: 56px; object-fit: cover; }
+  .search-item-info { flex: 1; }
+  .search-item-name { font-size: 12px; color: var(--white); margin-bottom: 4px; }
+  .search-item-price { font-size: 11px; color: var(--gold); }
+  .search-no-result { padding: 20px; text-align: center; font-size: 12px; color: var(--white-dim); }
+
+  /* CART PANEL */
+  .side-panel { position: fixed; top: 0; right: -420px; width: 400px; height: 100vh; background: var(--dark); border-left: 1px solid rgba(201,168,76,0.3); z-index: 999; transition: right 0.4s ease; display: flex; flex-direction: column; }
+  .side-panel.open { right: 0; }
+  .panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 998; display: none; }
+  .panel-overlay.open { display: block; }
+  .panel-header { padding: 24px; border-bottom: 1px solid rgba(201,168,76,0.2); display: flex; justify-content: space-between; align-items: center; }
+  .panel-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold); letter-spacing: 2px; }
+  .panel-close { font-size: 20px; cursor: pointer; color: var(--white-dim); transition: color 0.2s; }
+  .panel-close:hover { color: var(--gold); }
+  .panel-body { flex: 1; overflow-y: auto; padding: 20px; }
+  .panel-empty { text-align: center; padding: 60px 20px; color: var(--white-dim); font-size: 13px; }
+  .panel-empty-icon { font-size: 40px; margin-bottom: 16px; display: block; opacity: 0.4; }
+  .cart-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .cart-item img { width: 70px; height: 88px; object-fit: cover; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: 13px; color: var(--white); margin-bottom: 6px; }
+  .cart-item-price { font-size: 12px; color: var(--gold); margin-bottom: 10px; }
+  .cart-item-qty { display: flex; align-items: center; gap: 10px; }
+  .qty-btn { width: 26px; height: 26px; border: 1px solid rgba(201,168,76,0.4); background: transparent; color: var(--gold); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .qty-btn:hover { background: rgba(201,168,76,0.15); }
+  .qty-num { font-size: 13px; color: var(--white); min-width: 20px; text-align: center; }
+  .cart-item-remove { color: rgba(245,240,232,0.3); cursor: pointer; font-size: 16px; transition: color 0.2s; align-self: flex-start; }
+  .cart-item-remove:hover { color: #c0392b; }
+  .panel-footer { padding: 20px; border-top: 1px solid rgba(201,168,76,0.2); }
+  .cart-total { display: flex; justify-content: space-between; margin-bottom: 16px; }
+  .cart-total-label { font-size: 11px; letter-spacing: 2px; color: var(--white-dim); text-transform: uppercase; }
+  .cart-total-amount { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold); }
+  .checkout-btn { width: 100%; background: var(--gold); color: var(--black); padding: 16px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; border: none; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: background 0.3s; }
+  .checkout-btn:hover { background: var(--gold-light); }
+
+  /* WISHLIST PANEL */
+  .wishlist-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .wishlist-item img { width: 70px; height: 88px; object-fit: cover; }
+  .wishlist-item-name { font-size: 13px; color: var(--white); margin-bottom: 6px; }
+  .wishlist-item-price { font-size: 12px; color: var(--gold); margin-bottom: 10px; }
+  .wishlist-add-btn { font-size: 10px; letter-spacing: 1px; background: var(--gold); color: var(--black); border: none; padding: 7px 14px; cursor: pointer; font-weight: 600; font-family: 'Montserrat', sans-serif; }
+  .wishlist-remove { color: rgba(245,240,232,0.3); cursor: pointer; font-size: 16px; transition: color 0.2s; align-self: flex-start; }
+  .wishlist-remove:hover { color: #c0392b; }
+
+  /* WISHLIST HEART ACTIVE */
+  .prod-wishlist.active { color: #e74c3c; border-color: #e74c3c; background: rgba(231,76,60,0.1); }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--dark2); border: 1px solid rgba(201,168,76,0.4); color: var(--white); padding: 14px 28px; font-size: 12px; letter-spacing: 1px; z-index: 9999; opacity: 0; transition: all 0.4s; white-space: nowrap; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* CATEGORY MODAL */
+  .cat-modal { position: fixed; inset: 0; z-index: 999; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.8); }
+  .cat-modal.open { display: flex; }
+  .cat-modal-box { background: var(--dark); border: 1px solid rgba(201,168,76,0.3); width: 90%; max-width: 700px; max-height: 80vh; overflow-y: auto; padding: 36px; position: relative; }
+  .cat-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--gold); margin-bottom: 8px; }
+  .cat-modal-count { font-size: 10px; letter-spacing: 3px; color: var(--white-dim); text-transform: uppercase; margin-bottom: 28px; }
+  .cat-modal-close { position: absolute; top: 20px; right: 24px; font-size: 22px; cursor: pointer; color: var(--white-dim); }
+  .cat-modal-close:hover { color: var(--gold); }
+  .cat-modal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cat-modal-item { cursor: pointer; }
+  .cat-modal-img { aspect-ratio: 3/4; background: var(--dark2); overflow: hidden; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; color: rgba(201,168,76,0.2); font-size: 40px; }
+  .cat-modal-img img { width: 100%; height: 100%; object-fit: cover; }
+  .cat-modal-item-name { font-size: 13px; color: var(--white); margin-bottom: 4px; }
+  .cat-modal-item-price { font-size: 12px; color: var(--gold); }
+
+  /* ── HAMBURGER MENU ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--gold); transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,10,10,0.98); border-bottom: 1px solid rgba(201,168,76,0.2); z-index: 99; padding: 0; backdrop-filter: blur(12px); }
+  .mobile-menu.open { display: block; }
+  .mobile-menu ul { list-style: none; padding: 0; }
+  .mobile-menu ul li a { display: block; padding: 16px 24px; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--white-dim); text-decoration: none; border-bottom: 1px solid rgba(201,168,76,0.08); transition: all 0.2s; }
+  .mobile-menu ul li a:hover { color: var(--gold); padding-left: 32px; background: rgba(201,168,76,0.04); }
+
+  /* ── TABLET (max 1024px) ── */
+  @media (max-width: 1024px) {
+    .hero-title { font-size: 64px; }
+    .prod-grid { grid-template-columns: repeat(3, 1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .livraison-inner { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── MOBILE (max 768px) ── */
+  @media (max-width: 768px) {
+    /* NAV */
+    nav { padding: 0 1.2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-brand { font-size: 16px; letter-spacing: 2px; }
+    .nav-actions { gap: 1rem; }
+    .nav-icon { font-size: 16px; }
+    .search-box { width: 200px; right: -10px; }
+
+    /* HERO */
+    .hero { padding-top: 70px; min-height: auto; padding-bottom: 3rem; }
+    .hero-content { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.2rem; text-align: center; }
+    .hero-tag { justify-content: center; font-size: 9px; }
+    .hero-title { font-size: 42px; line-height: 1.1; }
+    .hero-sub { font-size: 12px; margin: 0 auto 2rem; }
+    .hero-cta { justify-content: center; flex-direction: column; align-items: center; gap: 12px; }
+    .btn-primary, .btn-secondary { width: 100%; max-width: 280px; padding: 14px 20px; text-align: center; }
+    .hero-visual { order: -1; }
+    .hero-img-frame { width: 100%; max-width: 320px; height: 400px; margin: 0 auto; }
+    .hero-badge { width: 75px; height: 75px; top: -10px; right: -10px; }
+    .hero-badge strong { font-size: 20px; }
+    .hero-badge span { font-size: 8px; }
+
+    /* MARQUEE */
+    .marquee-item { font-size: 9px; padding: 0 1rem; }
+
+    /* LIVRAISON */
+    .livraison-inner { grid-template-columns: 1fr 1fr; gap: 1.2rem; padding: 1.5rem 1.2rem; }
+    .livraison-icon { font-size: 22px; }
+    .livraison-title { font-size: 10px; }
+    .livraison-desc { font-size: 10px; }
+
+    /* SECTIONS */
+    .section { padding: 3rem 1.2rem; }
+    .section-title { font-size: 28px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+    /* CATEGORIES */
+    .cat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .cat-card-tall { grid-column: 1 / -1; min-height: 300px; grid-row: auto; }
+    .cat-card-short { min-height: 180px; }
+    .cat-name { font-size: 20px; }
+    .cat-count { font-size: 9px; }
+
+    /* PRODUCTS */
+    .prod-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .prod-name { font-size: 14px; }
+    .prod-price { font-size: 12px; }
+    .prod-brand { font-size: 8px; }
+    .prod-add { font-size: 9px; padding: 10px; }
+
+    /* PROMO */
+    .promo-inner { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.2rem; }
+    .promo-title { font-size: 36px; }
+    .promo-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .promo-stat-num { font-size: 34px; }
+    .promo-visual { height: 260px; }
+
+    /* TESTIMONIALS */
+    .test-grid { grid-template-columns: 1fr; gap: 2px; }
+    .test-quote { font-size: 15px; }
+
+    /* NEWSLETTER */
+    .newsletter-inner { padding: 3rem 1.2rem; }
+    .newsletter-title { font-size: 28px; }
+    .newsletter-form { flex-direction: column; gap: 10px; }
+    .newsletter-input { border-right: 1px solid rgba(201,168,76,0.3); }
+    .newsletter-btn { width: 100%; padding: 14px; }
+
+    /* FOOTER */
+    footer { padding: 3rem 1.2rem 1.5rem; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; }
+    .footer-pay { flex-wrap: wrap; justify-content: center; }
+
+    /* SIDE PANELS */
+    .side-panel { width: 100%; right: -100%; }
+
+    /* MODALS */
+    .cat-modal-box { padding: 24px 16px; }
+    .cat-modal-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .info-modal-box { width: 95%; }
+    .info-modal-body { padding: 20px 16px 28px; }
+    .size-table { font-size: 11px; }
+    .size-table th, .size-table td { padding: 8px 8px; }
+    .promo-stats { justify-content: space-between; }
+
+    /* SEARCH RESULTS */
+    #searchResults { right: 0; left: 0; width: 100%; position: fixed; top: 70px !important; }
+  }
+
+  /* ── SMALL MOBILE (max 400px) ── */
+  @media (max-width: 400px) {
+    .hero-title { font-size: 34px; }
+    .nav-brand { font-size: 14px; letter-spacing: 1px; }
+    .prod-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .cat-grid { gap: 8px; }
+    .promo-title { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">
+    <span class="nav-crown">♛</span>
+    <span class="nav-brand">HP Turkey Shop</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#nouveautes">Nouveautés</a></li>
+    <li><a href="#soldes">Soldes</a></li>
+    <li><a href="#apropos">À Propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="nav-actions">
+      <div class="search-wrap" id="searchWrap">
+        <span class="nav-icon" id="searchToggle" onclick="toggleSearch()">🔍</span>
+        <div class="search-box" id="searchBox">
+          <input type="text" id="searchInput" placeholder="Rechercher un produit..." oninput="searchProducts(this.value)" />
+          <span onclick="toggleSearch()" style="cursor:pointer;color:var(--gold);font-size:14px;">✕</span>
+        </div>
+      </div>
+      <span class="nav-icon" id="wishlistIcon" onclick="toggleWishlistPanel()">♡ <span id="wishlistCount" style="font-size:9px;background:var(--gold);color:var(--black);border-radius:50%;width:14px;height:14px;display:none;align-items:center;justify-content:center;font-weight:700;position:absolute;top:-6px;right:-6px;">0</span></span>
+      <span class="nav-icon cart-badge" onclick="toggleCartPanel()">🛍️<span class="cart-count" id="cartCount">0</span></span>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#accueil" onclick="closeMobileMenu()">Accueil</a></li>
+    <li><a href="#collection" onclick="closeMobileMenu()">Collection</a></li>
+    <li><a href="#nouveautes" onclick="closeMobileMenu()">Nouveautés</a></li>
+    <li><a href="#soldes" onclick="closeMobileMenu()">Soldes</a></li>
+    <li><a href="#apropos" onclick="closeMobileMenu()">À Propos</a></li>
+    <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="accueil" class="hero">
+
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div>
+      <p class="hero-tag">Collection Printemps / Été 2026</p>
+      <h1 class="hero-title">Le Luxe<br><em>d'Istanbul,</em><br>Livré Chez Vous</h1>
+      <p class="hero-sub">Découvrez la mode turque la plus raffinée — des pièces soigneusement sélectionnées qui allient élégance intemporelle et sophistication moderne.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="document.getElementById('collection').scrollIntoView({behavior:'smooth'})">Voir la Collection</button>
+        <button class="btn-secondary" onclick="openInfoModal('lookbook')">Lookbook</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-frame">
+        <img src="images/produit 2.PNG" alt="HP Turkey Shop" style="width:100%; height:100%; object-fit:cover; object-position:top center; display:block;" />
+        <div class="hero-badge">
+          <strong>30%</strong>
+          <span>Sur les Nouveautés</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Nouvelle Collection 2026</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Livraison Gratuite</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Mode Turque Authentique</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Tissus de Luxe</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Designs Exclusifs</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Nouvelle Collection 2026</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Livraison Gratuite</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Mode Turque Authentique</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Tissus de Luxe</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Designs Exclusifs</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- LIVRAISON -->
+<div class="livraison">
+  <div class="livraison-inner">
+    <div class="livraison-item">
+      <span class="livraison-icon">🚚</span>
+      <div>
+        <div class="livraison-title">Livraison Rapide</div>
+        <div class="livraison-desc">Expédition vers Kinshasa & partout</div>
+      </div>
+    </div>
+    <div class="livraison-item">
+      <span class="livraison-icon">♻️</span>
+      <div>
+        <div class="livraison-title">Retours Faciles</div>
+        <div class="livraison-desc">30 jours pour changer d'avis</div>
+      </div>
+    </div>
+    <div class="livraison-item">
+      <span class="livraison-icon">🔒</span>
+      <div>
+        <div class="livraison-title">Paiement Sécurisé</div>
+        <div class="livraison-desc">Vos données sont protégées</div>
+      </div>
+    </div>
+    <div class="livraison-item">
+      <span class="livraison-icon">💎</span>
+      <div>
+        <div class="livraison-title">Qualité Garantie</div>
+        <div class="livraison-desc">Pièces authentiques de Turquie</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div id="collection" style="background: var(--black);">
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Parcourir par Catégorie</p>
+        <h2 class="section-title">Collections Triées</h2>
+      </div>
+      <a class="see-all" href="#">Voir Tout</a>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card cat-card-tall" onclick="openCatModal('soiree')" style="cursor:pointer;">
+        <div class="cat-img" style="background:#0D0D0D;">
+          <img src="images/produit 5.PNG" alt="Tenues de Soirée" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-content">
+          <div class="cat-line"></div>
+          <div class="cat-name">Tenues de Soirée</div>
+          <div class="cat-count">48 Articles</div>
+        </div>
+      </div>
+      <div class="cat-card cat-card-short" onclick="openCatModal('accessoires')" style="cursor:pointer;">
+        <img src="images/IMG11.jpg" alt="Accessoires" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+        <div class="cat-overlay"></div>
+        <div class="cat-content">
+          <div class="cat-line"></div>
+          <div class="cat-name">Accessoires</div>
+          <div class="cat-count">62 Articles</div>
+        </div>
+      </div>
+      <div class="cat-card cat-card-short" onclick="openCatModal('sacs')" style="cursor:pointer;">
+        <img src="images/IMG4.jpg" alt="Sacs à Main" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+        <div class="cat-overlay"></div>
+        <div class="cat-content">
+          <div class="cat-line"></div>
+          <div class="cat-name">Sacs à Main</div>
+          <div class="cat-count">35 Articles</div>
+        </div>
+      </div>
+      <div class="cat-card cat-card-short" onclick="openCatModal('chaussures')" style="cursor:pointer;">
+        <img src="images/IMG1.jpg" alt="Chaussures" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+        <div class="cat-overlay"></div>
+        <div class="cat-content">
+          <div class="cat-line"></div>
+          <div class="cat-name">Chaussures</div>
+          <div class="cat-count">29 Articles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOUVEAUTÉS -->
+<div id="nouveautes" style="background: var(--dark);">
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Sélectionnées Pour Vous</p>
+        <h2 class="section-title">Nouveaux Arrivages</h2>
+      </div>
+      <a class="see-all" href="#">Tout Voir</a>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card" data-id="1" data-name="Ensemble Soirée Fushia" data-price="45000" data-img="images/nouveaute.png">
+        <div class="prod-img-wrap">
+          <img src="images/nouveaute.png" alt="Ensemble Soirée Fushia" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+          <span class="prod-tag">Nouveau</span>
+          <span class="prod-wishlist" onclick="toggleWishlist(this, 1, 'Ensemble Soirée Fushia', '45 000 FC', 'images/nouveaute.png')">♡</span>
+          <div class="prod-add" onclick="addToCart(1, 'Ensemble Soirée Fushia', 45000, 'images/nouveaute.png')">+ Ajouter au Panier</div>
+        </div>
+        <div class="prod-brand">HP Turkey</div>
+        <div class="prod-name">Ensemble Soirée Fushia</div>
+        <div class="prod-price"><span class="prod-price-sale">45 000 FC</span> <span style="text-decoration:line-through;opacity:0.4;font-size:11px;">58 000 FC</span></div>
+      </div>
+      <div class="prod-card" data-id="2" data-name="Kaftan en Velours" data-price="55000" data-img="images/produit 3.PNG">
+        <div class="prod-img-wrap">
+          <img src="images/produit 3.PNG" alt="Kaftan en Velours" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+          <span class="prod-wishlist" onclick="toggleWishlist(this, 2, 'Kaftan en Velours', '55 000 FC', 'images/produit 3.PNG')">♡</span>
+          <div class="prod-add" onclick="addToCart(2, 'Kaftan en Velours', 55000, 'images/produit 3.PNG')">+ Ajouter au Panier</div>
+        </div>
+        <div class="prod-brand">HP Turkey</div>
+        <div class="prod-name">Kaftan en Velours</div>
+        <div class="prod-price">55 000 FC</div>
+      </div>
+      <div class="prod-card" data-id="3" data-name="Blouse Brodée" data-price="28000" data-img="images/sold.png">
+        <div class="prod-img-wrap">
+          <img src="images/sold.png" alt="Blouse Brodée" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+          <span class="prod-tag prod-tag-solde">Solde</span>
+          <span class="prod-wishlist" onclick="toggleWishlist(this, 3, 'Blouse Brodée', '28 000 FC', 'images/sold.png')">♡</span>
+          <div class="prod-add" onclick="addToCart(3, 'Blouse Brodée', 28000, 'images/sold.png')">+ Ajouter au Panier</div>
+        </div>
+        <div class="prod-brand">HP Turkey</div>
+        <div class="prod-name">Blouse Brodée</div>
+        <div class="prod-price"><span class="prod-price-sale">28 000 FC</span> <span style="text-decoration:line-through;opacity:0.4;font-size:11px;">36 000 FC</span></div>
+      </div>
+      <div class="prod-card" data-id="4" data-name="Ensemble en Lin" data-price="38000" data-img="images/principale.PNG">
+        <div class="prod-img-wrap">
+          <img src="images/produit 1.PNG" alt="Ensemble en Lin" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+          <span class="prod-wishlist" onclick="toggleWishlist(this, 4, 'Ensemble en Lin', '38 000 FC', 'images/principale.PNG')">♡</span>
+          <div class="prod-add" onclick="addToCart(4, 'Ensemble en Lin', 38000, 'images/principale.PNG')">+ Ajouter au Panier</div>
+        </div>
+        <div class="prod-brand">HP Turkey</div>
+        <div class="prod-name">Ensemble en Lin</div>
+        <div class="prod-price">38 000 FC</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROMO -->
+<div id="soldes" class="promo">
+  <div class="promo-inner">
+    <div>
+      <p class="promo-label">Offre Exclusive</p>
+      <h2 class="promo-title">Jusqu'à 30% de<br>Réduction sur les<br><em>Nouveautés</em></h2>
+      <p class="promo-desc">Des pièces sélectionnées directement auprès des maisons de mode d'Istanbul. Qualité authentique, livrées avec soin jusqu'à votre porte à Kinshasa et partout en RDC.</p>
+      <div style="margin-bottom:2.5rem;">
+        <button class="btn-primary" onclick="document.getElementById('nouveautes').scrollIntoView({behavior:'smooth'})">Profiter des Soldes</button>
+      </div>
+      <div class="promo-stats">
+        <div>
+          <div class="promo-stat-num">500+</div>
+          <div class="promo-stat-label">Styles Disponibles</div>
+        </div>
+        <div>
+          <div class="promo-stat-num">12k</div>
+          <div class="promo-stat-label">Clientes Satisfaites</div>
+        </div>
+        <div>
+          <div class="promo-stat-num">4.9★</div>
+          <div class="promo-stat-label">Note Moyenne</div>
+        </div>
+      </div>
+    </div>
+    <div class="promo-visual">
+      <img src="images/principale.PNG" alt="Ensemble Soirée Fushia" style="width:100%;height:100%;object-fit:cover;object-position:top center;" />
+    </div>
+  </div>
+</div>
+
+<!-- AVIS CLIENTS -->
+<div id="apropos" style="background: var(--black);">
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Ce Que Disent Nos Clientes</p>
+        <h2 class="section-title">Adoré Partout</h2>
+      </div>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">« La qualité est absolument magnifique. Ma robe est arrivée dans un bel emballage et le tissu est tellement luxueux. Je commanderai à nouveau sans hésiter. »</p>
+        <div class="test-author">Aminata K.</div>
+        <div class="test-origin">Kinshasa, RDC</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">« J'ai acheté de la mode turque avant, mais HP Turkey Shop est dans une autre catégorie. Livraison rapide, pièces authentiques et le service client est exceptionnel. »</p>
+        <div class="test-author">Fatou M.</div>
+        <div class="test-origin">Lubumbashi, RDC</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">« Le kaftan que j'ai commandé est parfait — les broderies sont faites à la main et tellement délicates. C'est du vrai luxe à un prix juste. »</p>
+        <div class="test-author">Layla B.</div>
+        <div class="test-origin">Brazzaville, Congo</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="newsletter-inner">
+    <p class="newsletter-label">Restez Informée</p>
+    <h2 class="newsletter-title">Rejoignez Notre Monde</h2>
+    <p class="newsletter-sub">Inscrivez-vous pour recevoir nos nouvelles collections, offres exclusives et inspirations mode directement dans votre boîte mail.</p>
+    <div class="newsletter-form">
+      <input class="newsletter-input" type="email" placeholder="Votre adresse e-mail..." />
+      <button class="newsletter-btn">S'inscrire</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">♛ HP Turkey Shop</div>
+        <p class="footer-desc">L'élégance de la mode turque, livrée directement dans votre garde-robe. Des pièces authentiques et intemporelles sélectionnées auprès des meilleurs créateurs d'Istanbul.</p>
+        <div class="footer-social">
+          <a href="https://facebook.com/" target="_blank" class="footer-soc-btn">f</a>
+          <a href="https://www.instagram.com/hope.larose_km?igsh=MTd1N3MxdTJ5NDNleQ==" target="_blank" class="footer-soc-btn">ig</a>
+          <a href="https://wa.me/243995339389" target="_blank" class="footer-soc-btn">W</a>
+          <a href="https://www.tiktok.com/@hopelarose2?_r=1&_t=ZS-96Gne5caVI9" target="_blank" class="footer-soc-btn">TK</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Boutique</div>
+        <ul class="footer-links">
+          <li><a href="#nouveautes">Nouveautés</a></li>
+          <li><a href="#collection">Tenues de Soirée</a></li>
+          <li><a href="#collection">Accessoires</a></li>
+          <li><a href="#collection">Sacs à Main</a></li>
+          <li><a href="#soldes">Soldes</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Aide</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="openInfoModal('tailles');return false;">Guide des Tailles</a></li>
+          <li><a href="#" onclick="openInfoModal('livraison');return false;">Livraison</a></li>
+          <li><a href="#" onclick="openInfoModal('retours');return false;">Retours</a></li>
+          <li><a href="#" onclick="openInfoModal('suivi');return false;">Suivi de Commande</a></li>
+          <li><a href="#" onclick="openInfoModal('faq');return false;">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/243995339389" target="_blank">WhatsApp (+243) 995 339 389</a></li><li><a href="https://wa.me/905362654057" target="_blank">WhatsApp (+90) 536 265 4057</a></li>
+          <li><a href="https://www.tiktok.com/@hopelarose2" target="_blank">TikTok @hopelarose2</a></li>
+          <li><a href="https://www.instagram.com/hope.larose_km" target="_blank">Instagram @hope.larose_km</a></li>
+          <li><a href="#">Nos Points de Vente</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 HP Turkey Shop. Tous droits réservés.</span>
+      <div class="footer-pay">
+        <span class="pay-badge" onclick="openInfoModal('paiement')" style="cursor:pointer;" title="Payer par VISA">💳 VISA</span>
+        <span class="pay-badge" onclick="openInfoModal('paiement')" style="cursor:pointer;" title="Payer par Mastercard">💳 MASTERCARD</span>
+        <span class="pay-badge" onclick="openInfoModal('paiement')" style="cursor:pointer;" title="Mobile Money">📱 MOBILE MONEY</span>
+        <span class="pay-badge" onclick="openInfoModal('paiement')" style="cursor:pointer;" title="Virement bancaire">🏦 VIREMENT</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- OVERLAY -->
+<div class="panel-overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- PANIER PANEL -->
+<div class="side-panel" id="cartPanel">
+  <div class="panel-header">
+    <span class="panel-title">♛ Mon Panier</span>
+    <span class="panel-close" onclick="toggleCartPanel()">✕</span>
+  </div>
+  <div class="panel-body" id="cartBody">
+    <div class="panel-empty">
+      <span class="panel-empty-icon">🛍️</span>
+      Votre panier est vide.<br>Ajoutez des articles pour commencer !
+    </div>
+  </div>
+  <div class="panel-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cartTotal">0 FC</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Commander via WhatsApp 📱</button>
+  </div>
+</div>
+
+<!-- WISHLIST PANEL -->
+<div class="side-panel" id="wishlistPanel">
+  <div class="panel-header">
+    <span class="panel-title">♡ Mes Favoris</span>
+    <span class="panel-close" onclick="toggleWishlistPanel()">✕</span>
+  </div>
+  <div class="panel-body" id="wishlistBody">
+    <div class="panel-empty">
+      <span class="panel-empty-icon">♡</span>
+      Aucun favori pour le moment.<br>Cliquez sur ♡ pour sauvegarder !
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY MODAL -->
+<div class="cat-modal" id="catModal">
+  <div class="cat-modal-box">
+    <span class="cat-modal-close" onclick="closeCatModal()">✕</span>
+    <div class="cat-modal-title" id="catModalTitle"></div>
+    <div class="cat-modal-count" id="catModalCount"></div>
+    <div class="cat-modal-grid" id="catModalGrid"></div>
+  </div>
+</div>
+
+<!-- SEARCH RESULTS -->
+<div class="search-results" id="searchResults"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── DATA PRODUITS ──
+  const allProducts = [
+    { id:1, name:'Ensemble Soirée Fushia', price:45000, priceLabel:'45 000 FC', img:'images/nouveaute.png', cat:'soiree' },
+    { id:2, name:'Kaftan en Velours',       price:55000, priceLabel:'55 000 FC', img:'images/produit 3.PNG', cat:'soiree' },
+    { id:3, name:'Blouse Brodée',           price:28000, priceLabel:'28 000 FC', img:'images/sold.png',      cat:'soiree' },
+    { id:4, name:'Ensemble en Lin',         price:38000, priceLabel:'38 000 FC', img:'images/principale.PNG',cat:'soiree' },
+  ];
+
+  const catData = {
+    soiree:      { title:'Tenues de Soirée', count:'48 Articles' },
+    accessoires: { title:'Accessoires',      count:'62 Articles' },
+    sacs:        { title:'Sacs à Main',      count:'35 Articles' },
+    chaussures:  { title:'Chaussures',       count:'29 Articles' },
+  };
+
+  // ── PANIER ──
+  let cart = [];
+  let wishlist = [];
+
+  function addToCart(id, name, price, img) {
+    const existing = cart.find(i => i.id === id);
+    if (existing) { existing.qty++; }
+    else { cart.push({ id, name, price, img, qty:1 }); }
+    updateCartUI();
+    showToast('✓ ' + name + ' ajouté au panier !');
+    openCartPanel();
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(i => i.id !== id);
+    updateCartUI();
+  }
+
+  function changeQty(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) removeFromCart(id);
+    else updateCartUI();
+  }
+
+  function updateCartUI() {
+    const count = cart.reduce((s,i) => s + i.qty, 0);
+    document.getElementById('cartCount').textContent = count;
+    const body = document.getElementById('cartBody');
+    const footer = document.getElementById('cartFooter');
+    if (cart.length === 0) {
+      body.innerHTML = '<div class="panel-empty"><span class="panel-empty-icon">🛍️</span>Votre panier est vide.<br>Ajoutez des articles pour commencer !</div>';
+      footer.style.display = 'none';
+      return;
+    }
+    footer.style.display = 'block';
+    let html = '';
+    let total = 0;
+    cart.forEach(item => {
+      total += item.price * item.qty;
+      html += `<div class="cart-item">
+        <img src="${item.img}" alt="${item.name}" onerror="this.style.background='#1a1a1a';this.src=''">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${(item.price).toLocaleString('fr-FR')} FC</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+          </div>
+        </div>
+        <span class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</span>
+      </div>`;
+    });
+    body.innerHTML = html;
+    document.getElementById('cartTotal').textContent = total.toLocaleString('fr-FR') + ' FC';
+  }
+
+  function checkout() {
+    if (cart.length === 0) return;
+    let msg = '🛍️ *Commande HP Turkey Shop*\n\n';
+    cart.forEach(i => { msg += `• ${i.name} x${i.qty} — ${(i.price * i.qty).toLocaleString('fr-FR')} FC\n`; });
+    const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+    msg += `\n*Total: ${total.toLocaleString('fr-FR')} FC*`;
+    window.open('https://wa.me/243995339389?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  function toggleCartPanel() {
+    const panel = document.getElementById('cartPanel');
+    const overlay = document.getElementById('overlay');
+    const isOpen = panel.classList.contains('open');
+    closeAll();
+    if (!isOpen) { panel.classList.add('open'); overlay.classList.add('open'); }
+  }
+
+  function openCartPanel() {
+    closeAll();
+    document.getElementById('cartPanel').classList.add('open');
+    document.getElementById('overlay').classList.add('open');
+  }
+
+  // ── WISHLIST ──
+  function toggleWishlist(btn, id, name, priceLabel, img) {
+    const idx = wishlist.findIndex(i => i.id === id);
+    if (idx === -1) {
+      wishlist.push({ id, name, priceLabel, img });
+      btn.classList.add('active');
+      btn.textContent = '♥';
+      showToast('♥ ' + name + ' ajouté aux favoris !');
+    } else {
+      wishlist.splice(idx, 1);
+      btn.classList.remove('active');
+      btn.textContent = '♡';
+      showToast('♡ ' + name + ' retiré des favoris');
+    }
+    updateWishlistUI();
+  }
+
+  function updateWishlistUI() {
+    const body = document.getElementById('wishlistBody');
+    const icon = document.getElementById('wishlistIcon');
+    const cnt = document.getElementById('wishlistCount');
+    cnt.textContent = wishlist.length;
+    cnt.style.display = wishlist.length > 0 ? 'inline-flex' : 'none';
+    if (wishlist.length === 0) {
+      body.innerHTML = '<div class="panel-empty"><span class="panel-empty-icon">♡</span>Aucun favori pour le moment.<br>Cliquez sur ♡ pour sauvegarder !</div>';
+      return;
+    }
+    let html = '';
+    wishlist.forEach(item => {
+      html += `<div class="wishlist-item">
+        <img src="${item.img}" alt="${item.name}" style="width:70px;height:88px;object-fit:cover;" onerror="this.style.background='#1a1a1a'">
+        <div style="flex:1;">
+          <div class="wishlist-item-name">${item.name}</div>
+          <div class="wishlist-item-price">${item.priceLabel}</div>
+          <button class="wishlist-add-btn" onclick="addToCart(${item.id},'${item.name}',${allProducts.find(p=>p.id===item.id)?.price||0},'${item.img}')">+ Ajouter au Panier</button>
+        </div>
+        <span class="wishlist-remove" onclick="removeWishlist(${item.id})">✕</span>
+      </div>`;
+    });
+    body.innerHTML = html;
+  }
+
+  function removeWishlist(id) {
+    wishlist = wishlist.filter(i => i.id !== id);
+    // reset heart button
+    document.querySelectorAll('.prod-wishlist').forEach(btn => {
+      const card = btn.closest('[data-id]');
+      if (card && parseInt(card.dataset.id) === id) {
+        btn.classList.remove('active'); btn.textContent = '♡';
+      }
+    });
+    updateWishlistUI();
+  }
+
+  function toggleWishlistPanel() {
+    const panel = document.getElementById('wishlistPanel');
+    const overlay = document.getElementById('overlay');
+    const isOpen = panel.classList.contains('open');
+    closeAll();
+    if (!isOpen) { panel.classList.add('open'); overlay.classList.add('open'); }
+  }
+
+  // ── SEARCH ──
+  function toggleSearch() {
+    const box = document.getElementById('searchBox');
+    const results = document.getElementById('searchResults');
+    box.classList.toggle('open');
+    if (box.classList.contains('open')) {
+      document.getElementById('searchInput').focus();
+      // position results under search box
+      const wrap = document.getElementById('searchWrap');
+      results.style.top = (wrap.offsetTop + wrap.offsetHeight + 80) + 'px';
+      results.style.right = '3rem';
+    } else {
+      results.classList.remove('open');
+    }
+  }
+
+  function searchProducts(query) {
+    const results = document.getElementById('searchResults');
+    if (!query.trim()) { results.classList.remove('open'); return; }
+    const q = query.toLowerCase();
+    const found = allProducts.filter(p => p.name.toLowerCase().includes(q));
+    results.style.position = 'fixed';
+    results.style.top = '75px';
+    results.style.right = '3rem';
+    results.style.zIndex = '999';
+    if (found.length === 0) {
+      results.innerHTML = '<div class="search-no-result">Aucun produit trouvé pour "' + query + '"</div>';
+    } else {
+      results.innerHTML = found.map(p => `
+        <div class="search-item" onclick="addToCart(${p.id},'${p.name}',${p.price},'${p.img}')">
+          <img src="${p.img}" alt="${p.name}" onerror="this.style.background='#1a1a1a'">
+          <div class="search-item-info">
+            <div class="search-item-name">${p.name}</div>
+            <div class="search-item-price">${p.priceLabel}</div>
+          </div>
+          <span style="font-size:10px;color:var(--gold);letter-spacing:1px;">+ Panier</span>
+        </div>`).join('');
+    }
+    results.classList.add('open');
+  }
+
+  // ── CATEGORY MODAL ──
+  function openCatModal(cat) {
+    const data = catData[cat];
+    if (!data) return;
+    document.getElementById('catModalTitle').textContent = data.title;
+    document.getElementById('catModalCount').textContent = data.count;
+    const prods = allProducts.filter(p => p.cat === cat);
+    const grid = document.getElementById('catModalGrid');
+    if (prods.length === 0) {
+      grid.innerHTML = '<p style="color:var(--white-dim);font-size:13px;grid-column:1/-1;">Les articles de cette catégorie arrivent bientôt !</p>';
+    } else {
+      grid.innerHTML = prods.map(p => `
+        <div class="cat-modal-item">
+          <div class="cat-modal-img"><img src="${p.img}" alt="${p.name}" onerror="this.style.background='#1a1a1a'"></div>
+          <div class="cat-modal-item-name">${p.name}</div>
+          <div class="cat-modal-item-price">${p.priceLabel}</div>
+          <button onclick="addToCart(${p.id},'${p.name}',${p.price},'${p.img}')" style="margin-top:8px;background:var(--gold);color:var(--black);border:none;padding:8px 14px;font-size:10px;letter-spacing:1px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;width:100%;">+ Panier</button>
+        </div>`).join('');
+    }
+    document.getElementById('catModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCatModal() {
+    document.getElementById('catModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ── CLOSE ALL ──
+  function closeAll() {
+    document.getElementById('cartPanel').classList.remove('open');
+    document.getElementById('wishlistPanel').classList.remove('open');
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  // ── HAMBURGER MENU ──
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const burger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    burger.classList.toggle('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+
+  // ── NAV ACTIVE ON SCROLL ──
+  const sections = ['accueil','collection','nouveautes','soldes','apropos','contact'];
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 100) current = id;
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+
+  // ── NEWSLETTER ──
+  document.querySelector('.newsletter-btn').addEventListener('click', () => {
+    const input = document.querySelector('.newsletter-input');
+    if (!input.value.includes('@')) { showToast('⚠️ Entrez une adresse email valide'); return; }
+    showToast('✓ Merci ! Vous êtes maintenant inscrite 🎉');
+    input.value = '';
+  });
+</script>
+
+<!-- INFO MODAL -->
+<div class="info-modal" id="infoModal">
+  <div class="info-modal-box">
+    <div class="info-modal-header">
+      <span class="info-modal-title" id="infoModalTitle"></span>
+      <span class="info-modal-close" onclick="closeInfoModal()">✕</span>
+    </div>
+    <div class="info-modal-body" id="infoModalBody"></div>
+  </div>
+</div>
+
+<script>
+  const infoContent = {
+    lookbook: {
+      title: '✨ Lookbook 2026',
+      html: `
+      <div class="info-section">
+        <h3>Collection Printemps / Été 2026</h3>
+        <p>Découvrez nos tenues phares de la saison — des pièces élégantes directement inspirées des tendances d'Istanbul.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
+        <div style="aspect-ratio:3/4;overflow:hidden;background:var(--dark2);"><img src="images/produit 2.PNG" style="width:100%;height:100%;object-fit:cover;object-position:top;" onerror="this.parentElement.style.background='#1a1a1a'"></div>
+        <div style="aspect-ratio:3/4;overflow:hidden;background:var(--dark2);"><img src="images/produit 3.PNG" style="width:100%;height:100%;object-fit:cover;object-position:top;" onerror="this.parentElement.style.background='#1a1a1a'"></div>
+        <div style="aspect-ratio:3/4;overflow:hidden;background:var(--dark2);"><img src="images/sold.png" style="width:100%;height:100%;object-fit:cover;object-position:top;" onerror="this.parentElement.style.background='#1a1a1a'"></div>
+        <div style="aspect-ratio:3/4;overflow:hidden;background:var(--dark2);"><img src="images/principale.PNG" style="width:100%;height:100%;object-fit:cover;object-position:top;" onerror="this.parentElement.style.background='#1a1a1a'"></div>
+      </div>
+      <div class="info-section">
+        <h3>Voir toute la collection</h3>
+        <p>Suivez-nous sur Instagram et TikTok pour découvrir toutes nos nouvelles tenues en avant-première !</p>
+        <div style="display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;">
+          <button onclick="window.open('https://www.instagram.com/hope.larose_km','_blank')" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;border:none;padding:12px 24px;font-size:11px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;">📸 Instagram</button>
+          <button onclick="window.open('https://www.tiktok.com/@hopelarose2','_blank')" style="background:#000;color:#fff;border:1px solid #fff;padding:12px 24px;font-size:11px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;">🎵 TikTok</button>
+          <button onclick="window.open('https://wa.me/243995339389','_blank')" style="background:var(--gold);color:var(--black);border:none;padding:12px 24px;font-size:11px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;">💬 Commander</button>
+        </div>
+      </div>`
+    },
+    tailles: {
+      title: '📏 Guide des Tailles',
+      html: `<div class="info-section"><h3>Comment prendre vos mesures</h3><p>Prenez vos mesures en centimètres avec un mètre ruban souple, sur vos sous-vêtements.</p><ul><li>Poitrine : mesurez autour de la partie la plus forte</li><li>Taille : mesurez l'endroit le plus étroit</li><li>Hanches : mesurez l'endroit le plus large</li></ul></div>
+      <div class="info-section"><h3>Tableau des tailles</h3><table class="size-table"><thead><tr><th>Taille</th><th>Poitrine (cm)</th><th>Taille (cm)</th><th>Hanches (cm)</th></tr></thead><tbody><tr><td>S (36)</td><td>84–86</td><td>64–66</td><td>90–92</td></tr><tr><td>M (38)</td><td>88–90</td><td>68–70</td><td>94–96</td></tr><tr><td>L (40)</td><td>92–94</td><td>72–74</td><td>98–100</td></tr><tr><td>XL (42)</td><td>96–98</td><td>76–78</td><td>102–104</td></tr><tr><td>XXL (44)</td><td>100–104</td><td>80–84</td><td>106–110</td></tr><tr><td>3XL (46)</td><td>106–110</td><td>86–90</td><td>112–116</td></tr></tbody></table></div>
+      <div class="info-section"><h3>Besoin d'aide ?</h3><p>Si vous hésitez entre deux tailles, prenez la taille supérieure.</p><button onclick="window.open('https://wa.me/243995339389','_blank')" style="background:var(--gold);color:var(--black);border:none;padding:12px 28px;font-size:11px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;margin-top:10px;">💬 Nous Contacter</button></div>`
+    },
+    livraison: {
+      title: '🚚 Informations de Livraison',
+      html: `<div class="info-section"><h3>Délais de livraison</h3><ul><li>Kinshasa (RDC) — 5 à 10 jours ouvrables</li><li>Autres villes RDC — 7 à 14 jours ouvrables</li><li>Afrique de l'Ouest — 10 à 20 jours ouvrables</li><li>Europe & reste du monde — 7 à 15 jours ouvrables</li></ul></div>
+      <div class="info-section"><h3>Frais de livraison</h3><ul><li>Kinshasa — calculés selon le poids de la commande</li><li>Livraison gratuite à partir de 150 000 FC d'achat</li><li>Numéro de suivi envoyé par WhatsApp à l'expédition</li></ul></div>
+      <div class="info-section"><h3>Questions ?</h3><button onclick="window.open('https://wa.me/243995339389','_blank')" style="background:var(--gold);color:var(--black);border:none;padding:12px 28px;font-size:11px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;">💬 WhatsApp +243 995 339 389</button></div>`
+    },
+    retours: {
+      title: '♻️ Politique de Retours',
+      html: `<div class="info-section"><h3>Conditions de retour</h3><ul><li>Retours acceptés dans les 30 jours après réception</li><li>Article non porté, avec étiquettes d'origine</li><li>Dans son emballage d'origine</li><li>Articles soldés non échangeables</li></ul></div>
+      <div class="info-section"><h3>Comment faire un retour ?</h3><p>1. Contactez-nous sur WhatsApp avec votre numéro de commande</p><p>2. Décrivez le problème avec photos si nécessaire</p><p>3. Nous vous envoyons les instructions</p><p>4. Remboursement ou échange sous 7 jours</p></div>
+      <div class="info-section"><button onclick="window.open('https://wa.me/243995339389?text=Bonjour, je souhaite faire un retour. Mon numéro de commande est :','_blank')" style="background:var(--gold);color:var(--black);border:none;padding:12px 28px;font-size:11px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;">💬 Demander un Retour</button></div>`
+    },
+    suivi: {
+      title: '📦 Suivi de Commande',
+      html: `<div class="info-section"><h3>Suivre votre commande</h3><p>Entrez votre numéro de commande reçu par WhatsApp.</p><div class="suivi-form"><input class="suivi-input" id="suiviInput" type="text" placeholder="Ex: HPT-2026-00123" /><button class="suivi-btn" onclick="checkSuivi()">Chercher</button></div><div id="suiviResult" style="margin-top:16px;"></div></div>
+      <div class="info-section"><h3>Pas de numéro ?</h3><p>Contactez-nous avec votre nom et la date de commande.</p><button onclick="window.open('https://wa.me/243995339389?text=Bonjour, je voudrais suivre ma commande. Mon nom est :','_blank')" style="background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:12px 28px;font-size:11px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;margin-top:10px;">💬 Contacter le Support</button></div>`
+    },
+    faq: {
+      title: '❓ Questions Fréquentes',
+      html: `
+      <div class="info-section"><h3>Les articles sont-ils authentiques ?</h3><p>Oui, tous nos articles proviennent directement des fabricants et créateurs turcs. Chaque pièce est sélectionnée pour sa qualité.</p></div>
+      <div class="info-section"><h3>Comment passer une commande ?</h3><p>Ajoutez vos articles au panier, puis cliquez "Commander via WhatsApp". Vous serez redirigé avec le détail de votre commande.</p></div>
+      <div class="info-section"><h3>Quels sont les modes de paiement ?</h3><p>Mobile Money (M-Pesa, Airtel), virement bancaire, VISA/Mastercard, et paiement à la livraison pour Kinshasa.</p></div>
+      <div class="info-section"><h3>Puis-je annuler ma commande ?</h3><p>Les annulations sont acceptées dans les 24h. Contactez-nous immédiatement sur WhatsApp.</p></div>
+      <div class="info-section"><h3>Livrez-vous partout en RDC ?</h3><p>Oui ! Kinshasa, Lubumbashi, Goma, Bukavu, Mbuji-Mayi et toutes autres villes.</p></div>
+      <div class="info-section"><button onclick="window.open('https://wa.me/243995339389','_blank')" style="background:var(--gold);color:var(--black);border:none;padding:12px 28px;font-size:11px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;">💬 Autre Question ? WhatsApp</button></div>`
+    },
+    paiement: {
+      title: '💳 Modes de Paiement',
+      html: `
+      <div class="info-section"><h3>Choisissez votre mode de paiement</h3></div>
+      <div class="pay-method"><span class="pay-method-icon">💳</span><div><div class="pay-method-name">VISA / Mastercard</div><div class="pay-method-desc">Paiement sécurisé par carte bancaire. Lien de paiement envoyé via WhatsApp après confirmation.</div></div></div>
+      <div class="pay-method"><span class="pay-method-icon">📱</span><div><div class="pay-method-name">Mobile Money</div><div class="pay-method-desc">M-Pesa, Airtel Money, Orange Money. Numéro communiqué lors de votre commande WhatsApp.</div></div></div>
+      <div class="pay-method"><span class="pay-method-icon">🏦</span><div><div class="pay-method-name">Virement Bancaire</div><div class="pay-method-desc">Virement en USD ou CDF. Coordonnées envoyées après confirmation de commande.</div></div></div>
+      <div class="pay-method"><span class="pay-method-icon">🤝</span><div><div class="pay-method-name">Paiement à la Livraison</div><div class="pay-method-desc">Disponible uniquement pour Kinshasa. Payez en espèces à la réception.</div></div></div>
+      <div class="info-section" style="margin-top:20px;"><button onclick="window.open('https://wa.me/243995339389?text=Bonjour, je voudrais commander et payer en ligne.','_blank')" style="background:var(--gold);color:var(--black);border:none;padding:12px 28px;font-size:11px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;width:100%;">💬 Commander & Payer via WhatsApp</button></div>`
+    }
+  };
+
+  function openInfoModal(key) {
+    const data = infoContent[key];
+    if (!data) return;
+    document.getElementById('infoModalTitle').textContent = data.title;
+    document.getElementById('infoModalBody').innerHTML = data.html;
+    document.getElementById('infoModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeInfoModal() {
+    document.getElementById('infoModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function checkSuivi() {
+    const val = document.getElementById('suiviInput')?.value.trim();
+    const result = document.getElementById('suiviResult');
+    if (!val) { result.innerHTML = '<p style="color:#e74c3c;font-size:12px;">Veuillez entrer un numéro de commande.</p>'; return; }
+    result.innerHTML = `<div style="border:1px solid rgba(201,168,76,0.3);padding:16px;background:rgba(201,168,76,0.05);"><p style="font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">Commande : ${val}</p><p style="font-size:13px;color:var(--white-dim);">Contactez-nous sur WhatsApp avec ce numéro pour le statut exact.</p><button onclick="window.open('https://wa.me/243995339389?text=Bonjour, suivi commande numéro : ${val}','_blank')" style="background:var(--gold);color:var(--black);border:none;padding:10px 20px;font-size:10px;letter-spacing:2px;font-weight:600;cursor:pointer;font-family:Montserrat,sans-serif;margin-top:12px;">💬 Suivre sur WhatsApp</button></div>`;
+  }
+
+  document.getElementById('infoModal').addEventListener('click', function(e) {
+    if (e.target === this) closeInfoModal();
+  });
+</script>
+</body>
+</html>
